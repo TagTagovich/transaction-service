@@ -20,12 +20,12 @@ class UtmSequence
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $created;
+    private $created = null;
 
     /**
-     * @ORM\OneToMany(targetEntity=Utm::class, mappedBy="utmSequence")
+     * @ORM\OneToMany(targetEntity=Utm::class, mappedBy="utmSequence", cascade={"persist"}, orphanRemoval=true)
      */
     private $utms;
 

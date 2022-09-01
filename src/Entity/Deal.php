@@ -49,7 +49,7 @@ class Deal
     private $phone;
 
     /**
-     * @ORM\OneToMany(targetEntity=UtmSequence::class, mappedBy="deal")
+     * @ORM\OneToMany(targetEntity=UtmSequence::class, mappedBy="deal", cascade={"persist"})
      */
     private $utmSequences;
 

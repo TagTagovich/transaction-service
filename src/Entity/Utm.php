@@ -20,15 +20,15 @@ class Utm
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $key;
+    private $keyUtm;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $value;
+    private $valueUtm;
 
     /**
-     * @ORM\ManyToOne(targetEntity=UtmSequence::class, inversedBy="utms")
+     * @ORM\ManyToOne(targetEntity=UtmSequence::class, inversedBy="utms", cascade={"persist"})
      */
     private $utmSequence;
 
@@ -37,26 +37,26 @@ class Utm
         return $this->id;
     }
 
-    public function getKey(): ?string
+    public function getKeyUtm(): ?string
     {
-        return $this->key;
+        return $this->keyUtm;
     }
 
-    public function setKey(string $key): self
+    public function setKeyUtm(string $keyUtm): self
     {
-        $this->key = $key;
+        $this->keyUtm = $keyUtm;
 
         return $this;
     }
 
-    public function getValue(): ?string
+    public function getValueUtm(): ?string
     {
-        return $this->value;
+        return $this->valueUtm;
     }
 
-    public function setValue(?string $value): self
+    public function setValueUtm(?string $valueUtm): self
     {
-        $this->value = $value;
+        $this->valueUtm = $valueUtm;
 
         return $this;
     }

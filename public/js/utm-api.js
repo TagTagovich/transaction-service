@@ -1,50 +1,41 @@
-function init (utm_source, utm_campaign) 
+function init()
 {
-	fetch('http://localhost:8000/session_check/modify_check/', {
-		method: 'POST',
-		body: JSON.stringify({
-    		utm_source : utm_source,
-    		utm_campaign : utm_campaign
-	}),
-		headers: {
-		'Content-type': 'application/json; charset=UTF-8'
-		}
-	}).then(function (response) {
-		if (response.ok) {
-			return response.json();
-		}
-		return Promise.reject(response);
-	}).then(function (data) {
-		console.log(data);
-	}).catch(function (error) {
-		console.warn('Error script', error);
-	});
+	var imageUtm = document.createElement('img');
+	var url = window. location. href;
+	var queryString = url.split('?')[1];
+	imageUtm.src  = 'http://localhost:8000/session_check/modify_check/?' + queryString;
+	//console.log(queryString);
 }
 
 function purchase(number, sum, email, phone, status) 
 {
-	
-	fetch('http://localhost:8000/deal/add/', {
-		method: 'POST',
-		body: JSON.stringify({
-    		number : number,
-    		sum : sum,
-    		email : email,
-    		phone : phone,
-    		status : status
-	}),
-		headers: {
-		'Content-type': 'application/json; charset=UTF-8'
-		}
-	}).then(function (response) {
-		if (response.ok) {
-			return response.json();
-		}
-		return Promise.reject(response);
-	}).then(function (data) {
-		console.log(data);
-	}).catch(function (error) {
-		console.warn('Error script', error);
-	});
+	var paramsNames = [
+		"name=",
+		"sum=",
+		"email=",
+		"phone=",
+		"status="	
+	];
+	var args = Array.prototype.slice.call(arguments);
+	var args = [].slice.call(arguments);
+	//console.log(args);
+	var imageUtm = document.createElement('img');
+	var separator = "&"
+	var url = window. location. href;
+	var queryString = url.split('?')[1];
+	var arrayJoin = [];
+	for (var i = 0; i < arguments.length; i++) {
+    	if (i != arguments.length-1){
+    		arrayJoin[i] = paramsNames[i] + arguments[i] + separator;
+    	} else {
+    		arrayJoin[i] = paramsNames[i] + arguments[i]
+    	}
+  	}
+  	var paramsString = arrayJoin.join("");
+  	//console.log(paramsString);
+	imageUtm.src  = 'http://localhost:8000/deal/add/?' + paramsString;
 	 
 }
+
+init();
+//purchase();

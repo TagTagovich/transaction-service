@@ -23,7 +23,7 @@ class DealController extends AbstractController
     /**
      * @Route("/", name="app_deal")
      */
-    public function index(DealRepository $dealRepo): Response
+    public function index(Request $request, DealRepository $dealRepo): Response
     {
         return $this->render('deal/index.html.twig', [
             'deals' => $dealRepo->findAll(),
@@ -31,7 +31,7 @@ class DealController extends AbstractController
     }
 
     /**
-     * @Route("/add/", name="app_deal_add", methods={"POST"})
+     * @Route("/add/", name="app_deal_add", methods={"GET"})
      */
     public function add(Request $request, ValidatorInterface $validator): Response
     {
@@ -51,7 +51,8 @@ class DealController extends AbstractController
             'status' => new Assert\NotBlank()
             
         ]);*/
-        $payload = json_decode($request->getContent(), true);
+        //$payload = json_decode($request->getContent(), true);
+        $params = $request->query->all();
     /*$violations = $validator->validate($payload , $constraint);
 
         foreach($violations as $violation)
@@ -70,7 +71,7 @@ class DealController extends AbstractController
             }
             return new Response(json_encode($errorsMessages), Response::HTTP_INTERNAL_SERVER_ERROR);
         }*/
-        foreach ($payload as $key => $value) {
+        foreach ($params as $key => $value) {
             switch ($key) {
                 case 'number':
                     $deal->setNumber($value);
@@ -212,5 +213,13 @@ class DealController extends AbstractController
         }
     }
     
-    }  
+    }
+
+    /**
+     * @Route("/route/test/", name="route_test", methods={"GET"})
+     */
+    public function testRoute(Request $request): Response
+    {
+        return $this->render('deal/index.html.twig', ['deals' => 'ret']);
+    }   
 }
